@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>PrimeFaces Test</title>
+    <h:outputScript name="test.js"/>
+</h:head>
+<h:body>
+
+    <h1>Data Table Remove Bug</h1>
+    <p><h:link outcome="/test">Go Back zu Index</h:link></p>
+    <h2>Description</h2>
+    <p>1. (Working Example): Remove a product with the button on the right and you see that after the
+        ajax update the product disappeares.</p>
+    <p>2. (Buggy Example): Filter for such label like 'b'. You will then just see the bike.
+        Try to remove the bike. PrimeFaces then trys at first to create a new Instance of the product (I don't know why)
+        and then the row still remains. If you do not have a default constructor, you get an instantiation error.</p>
+
+
+    <h:form id="form">
+        <p:dataTable id="dt-products"
+                     value="#{dataTableRemoveBugView.productList}"
+                     var="product"
+                     rowKey="#{product.id}">
+            <p:column headerText="Label"
+                      sortBy="#{product.label}"
+                      filterBy="#{product.label}">
+                <h:outputText value="#{product.label}"/>
+            </p:column>
+            <p:column headerText="Price">
+                <h:outputText value="#{product.price}"/>
+            </p:column>
+            <p:column headerText="In Stock?">
+                <h:outputText value="#{product.inStock}"/>
+            </p:column>
+            <p:column>
+                <p:commandButton id="remove"
+                                 update="form:dt-products"
+                                 actionListener="#{dataTableRemoveBugView.remove(product)}"
+                                 value="Remove Product">
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
