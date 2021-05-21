@@ -1,8 +1,9 @@
 package org.primefaces.test.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Product {
+public class Product implements Serializable {
 
   private String id;
   private String label;

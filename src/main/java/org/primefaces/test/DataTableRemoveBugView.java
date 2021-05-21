@@ -14,6 +14,7 @@ import java.util.List;
 public class DataTableRemoveBugView implements Serializable {
 
   private List<Product> productList;
+  private List<Product> filteredList = new ArrayList<>();
   private Product selectedProduct;
 
   @PostConstruct
@@ -45,6 +46,7 @@ public class DataTableRemoveBugView implements Serializable {
   public void remove(Product product) {
     System.out.println("Product to remove: " + product.getLabel());
     this.productList.remove(product);
+    this.filteredList.remove(product);
   }
 
   public List<Product> getProductList() {
@@ -53,5 +55,13 @@ public class DataTableRemoveBugView implements Serializable {
 
   public void setProductList(List<Product> productList) {
     this.productList = productList;
+  }
+
+  public List<Product> getFilteredList() {
+    return filteredList;
+  }
+
+  public void setFilteredList(List<Product> filteredList) {
+    this.filteredList = filteredList;
   }
 }

@@ -23,6 +23,7 @@
         <p:dataTable id="dt-products"
                      value="#{dataTableRemoveBugView.productList}"
                      var="product"
+                     filteredValue="#{dataTableRemoveBugView.filteredList}"
                      rowKey="#{product.id}">
             <p:column headerText="Label"
                       sortBy="#{product.label}"
