@@ -1,8 +1,13 @@
 package org.primefaces.test;
 
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.datatable.feature.DataTableFeatureKey;
+import org.primefaces.component.datatable.feature.FilterFeature;
+import org.primefaces.component.datatable.feature.SortFeature;
 import org.primefaces.test.model.Product;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -47,6 +52,17 @@ public class DataTableRemoveBugView implements Serializable {
     System.out.println("Product to remove: " + product.getLabel());
     this.productList.remove(product);
     this.filteredList.remove(product);
+  }
+
+  public void removeWorkaround(Product product) {
+    System.out.println("Product to remove: " + product.getLabel());
+    this.productList.remove(product);
+//    this.filteredList.remove(product);
+    DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:dt-products");
+    FilterFeature filterFeature = (FilterFeature) dataTable.getFeature(DataTableFeatureKey.FILTER);
+    filterFeature.filter(FacesContext.getCurrentInstance(), dataTable);
+    SortFeature sortFeature = (SortFeature) dataTable.getFeature(DataTableFeatureKey.SORT);
+    sortFeature.sort(FacesContext.getCurrentInstance(), dataTable);
   }
 
   public List<Product> getProductList() {

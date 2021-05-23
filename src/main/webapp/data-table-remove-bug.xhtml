@@ -42,6 +42,12 @@
                                  actionListener="#{dataTableRemoveBugView.remove(product)}"
                                  value="Remove Product">
                 </p:commandButton>
+                <p:commandButton id="remove-workaround"
+                                 styleClass="ui-button-warning"
+                                 update="form:dt-products"
+                                 actionListener="#{dataTableRemoveBugView.removeWorkaround(product)}"
+                                 value="Remove with Workaround">
+                </p:commandButton>
             </p:column>
         </p:dataTable>
     </h:form>
